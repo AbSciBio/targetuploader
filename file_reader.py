@@ -3,12 +3,8 @@ from Bio import SeqIO
 class FileReader():
   def __init__(self, subunit_name):
     self.file_name = subunit_name 
-    
 
-  def get_fasta_description(self, seq_type):
-    return self.find_sequence(seq_type)
-
-  def find_sequence(self, seq_type):
+  def get_fasta_sequence(self, seq_type):
     errors = []
     sequence = ''
     try:
