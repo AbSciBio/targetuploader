@@ -1,5 +1,6 @@
 from openpyxl import load_workbook
 import parser
+from ptdb_request import PTDBRequest
 
 loc = './assets/XOLO_PTDB_Nomenclature.xlsx'
 wb = load_workbook(loc)
@@ -15,5 +16,5 @@ for row in range(2, 3):
         "project": "Xolo",
         "subunits": parser.SubunitParser(ws, row).subunits,
     }
-    print(target)
-    
+    PTDBRequest(target).post_target()
+
