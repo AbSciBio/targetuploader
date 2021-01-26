@@ -6,7 +6,7 @@ wb = load_workbook(loc)
 ws = wb.active
 max_row = ws.max_row
 
-for row in range (2, 3):
+for row in range(2, 3):
     target = {
         "target": ws.cell(row, 1).value,
         "partner": "",
