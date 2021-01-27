@@ -12,10 +12,9 @@ class PTDBRequest():
   def post_target(self):
     headers = self.get_headers()
     json_target_data = self.target
-    login = {'username': USER, 'password': PASS}
-    request = requests.post(URL, data=json_target_data, headers=headers)
-    print(request.json())
-    print(request.status_code)
+    # request = requests.post(URL, data=json_target_data, headers=headers)
+    # print(request.json())
+    print(json_target_data)
 
   def get_headers(self):
     return {
