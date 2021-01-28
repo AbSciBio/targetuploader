@@ -27,9 +27,9 @@ results_worksheet_column_names = [
 ]
 for i in range(0, len(results_worksheet_column_names)):
     results_worksheet.cell(1, i + 1, results_worksheet_column_names[i])
-
 targets = []
 
+# Upload data to PTDB
 for row in range(2, max_row + 1):
     target = {
         "target": ws.cell(row, 1).value,
@@ -42,8 +42,9 @@ for row in range(2, max_row + 1):
     PTDBRequest(target).post_target()
     targets.append(target)
 
-for i in range(0, len(targets)):
-    print(targets[i]['target'])
+
+# Create Excel Workbook with results
+for i in range(0, len(targets)):    
     results_worksheet.cell(i + 2, 1, targets[i]['target'])
     results_worksheet.cell(i + 2, 2, targets[i]['notes'])
     results_worksheet.cell(i + 2, 3, targets[i]['partner'])
@@ -56,5 +57,4 @@ for i in range(0, len(targets)):
     results_worksheet.cell(i + 2, 10, targets[i]['subunits'][1]['subunit_name'])
     results_worksheet.cell(i + 2, 11, targets[i]['subunits'][1]['amino_acid_sequence'])
     results_worksheet.cell(i + 2, 12, targets[i]['subunits'][1]['genes'][0]['dna_sequence'])
-
 results_workbook.save('test.xlsx')
