@@ -1,8 +1,9 @@
 import requests
 import json
+import pprint
 
 URL = "http://localhost:8000/api/v1/absci-targets/target-registration/"
-TOKEN = ""
+TOKEN = "b94705a1e7169c061c8e550c8416f0c1cbfa0ed7"
 
 
 class PTDBRequest():
@@ -12,10 +13,8 @@ class PTDBRequest():
   def post_target(self):
     headers = self.get_headers()
     json_target_data = self.target
-    login = {'username': USER, 'password': PASS}
-    request = requests.post(URL, data=json_target_data, headers=headers)
-    print(request.json())
-    print(request.status_code)
+    # request = requests.post(URL, data=json_target_data, headers=headers)
+    # pprint.pprint(json_target_data)
 
   def get_headers(self):
     return {
