@@ -2,7 +2,7 @@ import requests
 import json
 
 URL = "http://localhost:8000/api/v1/absci-targets/target-registration/"
-TOKEN = "b94705a1e7169c061c8e550c8416f0c1cbfa0ed7"
+TOKEN = ""
 
 
 class PTDBRequest():
@@ -11,8 +11,8 @@ class PTDBRequest():
 
   def post_target(self):
     headers = self.get_headers()
-    json_target_data = self.target
-    # request = requests.post(URL, data=json_target_data, headers=headers)
+    request = requests.post(URL, data=self.target, headers=headers)
+    print(request)
 
   def get_headers(self):
     return {
