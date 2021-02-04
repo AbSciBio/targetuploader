@@ -1,55 +1,21 @@
-from lib.file_reader import ExcelReader
-from lib.ptdb_request import PTDBRequest
 import json
+import argparse
+from lib.target_creator import TargetCreator
+from lib.ptdb_request import PTDBRequest
 
-def target_uploader():
-    loc = './assets/XOLO_PTDB_Nomenclature.xlsx'
-    new_targets = ExcelReader(loc).targets    
-    # Upload data to PTDB
-    for target in new_targets:
+def upload_targets(user_input):    
+    for target in TargetCreator(user_input).targets:
         PTDBRequest(target).post_target()
-    print('done')
         
 if __name__ == "__main__":
-    target_uploader()
-
-
-
-
-# Create Excel Workbook with results
-# for i in range(0, len(targets)):    
-#     results_worksheet.cell(i + 2, 1, targets[i]['target'])
-#     results_worksheet.cell(i + 2, 2, targets[i]['notes'])
-#     results_worksheet.cell(i + 2, 3, targets[i]['partner'])
-#     results_worksheet.cell(i + 2, 4, targets[i]['project_name'])
-#     results_worksheet.cell(i + 2, 5, targets[i]['subunits'][0]['subunit_name'])
-#     results_worksheet.cell(i + 2, 6, targets[i]['subunits'][0]['subunit_name'])
-#     results_worksheet.cell(i + 2, 7, targets[i]['subunits'][0]['amino_acid_sequence'])
-#     results_worksheet.cell(i + 2, 8, targets[i]['subunits'][0]['genes'][0]['dna_sequence'])
-#     results_worksheet.cell(i + 2, 9, targets[i]['subunits'][1]['subunit_name'])
-#     results_worksheet.cell(i + 2, 10, targets[i]['subunits'][1]['subunit_name'])
-#     results_worksheet.cell(i + 2, 11, targets[i]['subunits'][1]['amino_acid_sequence'])
-#     results_worksheet.cell(i + 2, 12, targets[i]['subunits'][1]['genes'][0]['dna_sequence'])
-# results_workbook.save('test.xlsx')
-
-
-# results_workbook = Workbook()
-# results_workbook.active
-# results_worksheet = results_workbook.create_sheet('results')
-# results_worksheet.title = "Results of CD19 Upload"
-# results_worksheet_column_names = [ 
-#     "Target", 
-#     "Notes", 
-#     "Partner", 
-#     "Project", 
-#     "Subunit 1 Name", 
-#     "Subunit 1 Fasta File IDs", 
-#     "Subunit 1 AA sequence", 
-#     "Subunit 1 DNA Sequence",
-#     "Subunit 2 Name", 
-#     "Subunit 2 Fasta File IDs", 
-#     "Subunit 2 AA sequence", 
-#     "Subunit 2 DNA Sequence" 
-# ]
-# for i in range(0, len(results_worksheet_column_names)):
-#     results_worksheet.cell(1, i + 1, results_worksheet_column_names[i])
+    parser = argparse.ArgumentParser(description="""This program was written to upload 45 
+        variations of the CD19 McAbody molecule. In order for the program to run users must provide
+        a file path to an Excel workbook, a file path to a directory of FASTA files, and a token
+        to communicate with the PTDB API.""")
+    parser.add_argument('--excel_file_location', help='Use the --excel_file_location flag to specify the location of the excel document that contains the subunit naming data.')
+    parser.add_argument('--fasta_location', help='Use the --fasta_location flag to specify the loaction of a directory of FASTA files.')
+    parser.add_argument('--API_URL', help='Use the --API_URL flag to set the destination of POST request.')
+    parser.add_argument('--token', help='Use the --token flag to set the API key needed to upload data to the PTDB API.')
+    args = parser.parse_args()
+    args = vars(args)
+    upload_targets(args)
