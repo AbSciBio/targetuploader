@@ -3,12 +3,13 @@ import requests
 
 URL = "http://localhost:8000/api/v1/absci-targets/target-registration/"
 class PTDBRequest():
-  def __init__(self, new_target):
+  def __init__(self, new_target, user_input):
     self.target = json.dumps(new_target)
+    self.url = user_input['API_URL']
 
   def post_target(self):
     headers = self.get_headers()
-    # request = requests.post(URL, data=self.target, headers=headers)
+    # request = requests.post(self.url, data=self.target, headers=headers)
     
   def get_headers(self):
     return {
