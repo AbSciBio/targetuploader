@@ -9,9 +9,9 @@ class TargetCreator():
     self.max_row = self.ws.max_row
     self.targets = []
     self.fasta_location = user_input['fasta_location']
-    self.excl_reader()
+    self.excel_reader()
 
-  def excl_reader(self):
+  def excel_reader(self):
       for row in range(2, self.max_row + 1):
           target = {
               "target": self.ws.cell(row, 1).value,

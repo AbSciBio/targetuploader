@@ -15,10 +15,25 @@ class TestTargetCreator(unittest.TestCase):
 
     self.mock_target = json.load(path_to_mock_target)
     self.mock_user_input = json.load(path_to_mock_user_input)
-    self.mock_TargetCreator = TargetCreator(self.mock_user_input)
+    self.TargetCreator = TargetCreator
+    self.mock_subunits_array = self.mock_target['subunits']
 
   
   def test_parse_genes(self):
-    mock_targets = self.mock_TargetCreator(self.mock_user_input)
-    print('hi from parse genes')
-    print(mock_targets)
+    for subunit in range(len(self.mock_subunits_array)):
+      mock_subunit = self.mock_subunits_array[subunit]
+      mock_subunit_name = mock_subunit['subunit_name']
+      mock_genes_array = mock_subunit['genes']
+      result_genes_array = self.TargetCreator(self.mock_user_input).parse_genes(mock_subunit_name)
+      self.assertEqual(result_genes_array, mock_genes_array)
+    
+
+  def test_parse_subunits(self):
+    for subunit in range(len(self.mock_subunits_array)):
+      result_subunit_array = self.TargetCreator(self.mock_user_input).parse_subunits(2)
+      self.assertEqual(result_subunit_array[subunit], self.mock_subunits_array[subunit])
+
+  def test_excel_reader(self):
+      result_mock_target = self.TargetCreator(self.mock_user_input).targets
+      self.assertEqual(result_mock_target[0], self.mock_target)
+  
