@@ -5,7 +5,7 @@ from lib.ptdb_request import PTDBRequest
 
 def upload_targets(user_input):    
     for target in TargetCreator(user_input).targets:
-        PTDBRequest(target).post_target()
+        PTDBRequest(target, user_input).post_target()
         
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="""This program was written to upload 45 
