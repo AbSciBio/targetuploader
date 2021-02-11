@@ -3,11 +3,10 @@ import requests
 from pprint import pprint
 class PTDBRequest():
   def __init__(self, new_target, user_input):
+    print(new_target['target'])
     self.target = json.dumps(new_target)
     self.url = user_input['API_URL']
     self.token = user_input['token']
-    pprint(self.target, indent=2)
-    print(" ")
 
   def post_target(self):
     headers = self.get_headers()

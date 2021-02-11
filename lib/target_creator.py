@@ -12,7 +12,7 @@ class TargetCreator():
     self.excel_reader()
 
   def excel_reader(self):
-      for row in range(self.max_row, self.max_row + 1):
+      for row in range(2, self.max_row + 1):
           target = {
               "target": self.ws.cell(row, 1).value,
               "partner": "Xyphos",
